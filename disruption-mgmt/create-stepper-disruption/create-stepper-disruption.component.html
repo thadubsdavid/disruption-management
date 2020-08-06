@@ -1,0 +1,126 @@
+<!--Dialog window triggered by sidebar button to register an disruption-->
+<jqxWindow #showCreateDisruption [width]="655" [height]="'auto'" [minHeight]="650" [minWidth]="300" [autoOpen]="false"
+  [isModal]="true" [resizable]="true" [showCloseButton]="false" (onClose)="onWindowClosed($event)"
+  [title]="'CreateDisruption'">
+  <h5>{{ 'DisruptionGridDriverComponent.Title' | translate}}</h5>
+  <!-- Materials stepper to register an disruption nested in dialog-->
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+
+    <!-- Step Form to identify disruption type nested in stepper-->
+    <mat-step [stepControl]="disruptionTypeFormGroup">
+      <form [formGroup]="disruptionTypeFormGroup">
+        <ng-template matStepLabel>{{ 'DisruptionMgmtComponent.StepOne' | translate}}</ng-template>
+
+        <!-- Form to select Disruption Type nested in stepper-->
+        <div class="form-item-container" [hidden]="!showDisruptionTypeDropdown">
+          <mat-label>{{ 'DisruptionGridDriverComponent.Catalog' | translate}}</mat-label>
+          <jqxComboBox #disruptionTypesComboBox (onSelect)="disruptionComboBoxOnSelect($event)" [width]="150"
+            [height]="30" [source]="disruptionTypesAdapter" [selectedIndex]="disruptionTypesAdapterIndex">
+          </jqxComboBox>
+        </div>
+
+        <!-- Form to search disrupted element nested in stepper-->
+        <div class="form-item-container" [hidden]="!enableUISearchPerson">
+          <mat-label>{{ 'DisruptionGridDriverComponent.SearchField' | translate}}</mat-label>
+          <div class="form-item-container" >
+            <jqxInput #UISearchPersonInput id="UISeachPersonInput" [value]="" [width]="200" [height]="25"
+              [minLength]="1" [placeHolder]="'Enter Driver'">
+            </jqxInput>
+            <jqxButton #button (onClick)="searchDriversButtonPressedEvent($event)" [width]="60" [height]="30">
+              {{ 'DisruptionGridDriverComponent.SearchButton' | translate}}
+            </jqxButton>
+          </div>
+          <div>
+            <jqxGrid #driversDataTableRef [columns]="driversColumns" [source]="driversDataAdapter"
+              [pageable]="driversTableConfiguration.pageable" [sortable]="driversTableConfiguration.sortable"
+              [editable]="driversTableConfiguration.editable" [filterable]="driversTableConfiguration.filterable"
+              [columnsresize]="driversTableConfiguration.columnsResize"
+              [columnsreorder]="driversTableConfiguration.columnsReorder"
+              [pagerbuttonscount]="driversTableConfiguration.pagerButtonsCount"
+              [pagesize]="driversTableConfiguration.pagesize" (onCellvaluechanged)="onDriverCellValueChanged($event)"
+              [width]="500" [height]="200">
+            </jqxGrid>
+          </div>
+        </div>
+
+
+        <!-- Form to search disrupted element nested in stepper-->
+        <div class="form-item-container" [hidden]="!enableUISearchVehicles">
+          <mat-label>{{ 'DisruptionGridVehicleComponent.SearchField' | translate}}</mat-label>
+          <div class="form-item-container" [hidden]="!enableUISearchVehicles">
+            <jqxInput #UISearchVehicleInput id="UISeachPersonInput" [value]="" [width]="200" [height]="25"
+              [minLength]="1" [placeHolder]="'Enter Vehicle'">
+            </jqxInput>
+            <jqxButton #button (onClick)="searchVehiclesButtonPressedEvent($event)" [width]="60" [height]="30">
+              {{ 'DisruptionGridDriverComponent.SearchButton' | translate}}
+            </jqxButton>
+          </div>
+        </div>
+        <div class="form-item-container" [hidden]="!enableShowVehiclesGrid">
+        <!-- <div class="form-item-container"> -->
+          <jqxGrid #vehiclesDataTableRef [columns]="vehiclesColumns" [source]="vehiclesDataAdapter"
+            [pageable]="vehiclesTableConfiguration.pageable" [sortable]="vehiclesTableConfiguration.sortable"
+            [editable]="vehiclesTableConfiguration.editable" [filterable]="vehiclesTableConfiguration.filterable"
+            [columnsresize]="vehiclesTableConfiguration.columnsResize"
+            [columnsreorder]="vehiclesTableConfiguration.columnsReorder"
+            [pagerbuttonscount]="vehiclesTableConfiguration.pagerButtonsCount"
+            [pagesize]="vehiclesTableConfiguration.pagesize" (onCellvaluechanged)="onVehicleCellValueChanged($event)"
+            [width]="500" [height]="200">
+          </jqxGrid>
+        </div>
+        <div>
+          <button mat-button matStepperNext>{{ 'DisruptionMgmtComponent.Next' | translate}}</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step Form to set start of disruption nested in stepper-->
+    <mat-step [stepControl]="setDisruptionStartFormGroup">
+      <form [formGroup]="setDisruptionStartFormGroup">
+        <ng-template matStepLabel>{{ 'DisruptionMgmtComponent.StepTwo' | translate}}</ng-template>
+        <label>{{ 'DisruptionMgmtComponent.DisruptionStart' | translate}}</label>
+        <jqxDateTimeInput #pickerStart [width]="300" [height]="25" [formatString]="'yyyy-MM-dd HH:mm'"
+          [showTimeButton]="true" [showCalendarButton]="true">
+        </jqxDateTimeInput>
+        <br />
+        <div>
+          <button mat-button matStepperPrevious>{{ 'DisruptionMgmtComponent.Back' | translate}}</button>
+          <button mat-button (click)="setDisruptionStartTime()"
+            matStepperNext>{{ 'DisruptionMgmtComponent.Next' | translate}}</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step Form to set end of disruption nested in stepper-->
+    <mat-step [stepControl]="setDisruptionEndFormGroup">
+      <form [formGroup]="setDisruptionEndFormGroup">
+        <ng-template matStepLabel>{{ 'DisruptionMgmtComponent.StepThree' | translate}}</ng-template>
+        <mat-label>{{ 'DisruptionMgmtComponent.DisruptionEnd' | translate}}</mat-label>
+        <jqxDateTimeInput #pickerEnd [width]="300" [height]="25" [formatString]="'yyyy-MM-dd HH:mm'"
+          [showTimeButton]="true" [showCalendarButton]="true">
+        </jqxDateTimeInput>
+        <br />
+        <div>
+          <button mat-button matStepperPrevious>{{ 'DisruptionMgmtComponent.Back' | translate}}</button>
+          <button mat-button (click)="setDisruptionEndTime()"
+            matStepperNext>{{ 'DisruptionMgmtComponent.Next' | translate}}</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step Form to add additional information of disruption and save disruption nested in stepper-->
+    <mat-step>
+      <ng-template matStepLabel>{{ 'DisruptionMgmtComponent.StepFour' | translate}}</ng-template>
+      <p>{{ 'DisruptionMgmtComponent.CreateStepperEndNote' | translate}}</p>
+      <div>
+        <mat-label>{{ 'DisruptionMgmtComponent.AddInfo' | translate}} </mat-label>
+        <jqxInput #inputDisruptionDescription id="description"></jqxInput>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>{{ 'DisruptionMgmtComponent.Back' | translate}}</button>
+        <button mat-button
+          (click)="APISaveDisruptionButtonPressed()">{{ 'DisruptionMgmtComponent.SaveButton' | translate}}</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</jqxWindow>

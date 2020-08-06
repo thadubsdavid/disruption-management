@@ -1,0 +1,16 @@
+<h5>{{ 'DisruptionGridComponent.Title' | translate}}</h5>
+<jqxGrid #disruptionEntryTable [columns]="columns" [source]="dataAdapter"
+	[pageable]="tableConfiguration.pageable"
+	[sortable]="tableConfiguration.sortable"
+	[editable]="tableConfiguration.editable"
+	[filterable]="tableConfiguration.filterable"
+	[columnsresize]="tableConfiguration.columnsResize"
+	[columnsreorder]="tableConfiguration.columnsReorder"
+	[pagerbuttonscount]="tableConfiguration.pagerButtonsCount"
+	[pagesize]="tableConfiguration.pagesize"
+	[width]="'100%'" [height]="'90%'"
+	(onCelldoubleclick)="onCellDoubleClicked($event)"
+	(onCellvaluechanged)="onCellValueChanged($event)"
+	(onColumnreordered)="onColumnReordered($event)"
+	(onColumnresized)="onColumnResized($event)">
+</jqxGrid>

@@ -1,0 +1,327 @@
+<div id="processDisruptionEnabledDefault" [hidden]="!processDisruptionEnabledDefault"
+  [hidden]="!disruptionHistoryEnabledDefault">
+  <span>
+    <h4>{{ 'DisruptionProcessComponent.ProcessDisruptionEnabled' | translate}}</h4>
+  </span>
+</div>
+<div *ngIf="processDisruptionEnabled">
+
+  <div id="processDisruptionHeader">
+    <h4>{{ 'DisruptionProcessComponent.Title' | translate}}
+      ({{ 'DisruptionMgmtComponent.defaults.DisruptionTypes.' + processDisruption.type  | translate }})</h4>
+    <span id="disruptionActualState">{{ 'DisruptionProcessComponent.ActualDisruptionState' | translate}}: </span>
+    <span
+      id="someActualState">{{ 'DisruptionProcessComponent.DisruptionStates.' + processDisruption.currentState.state | translate }}</span>
+    <br>
+    <span id="disruptionStart">{{ 'DisruptionProcessComponent.DisruptionStart' | translate}}: </span>
+    <span id="someStart">{{ disruptionStart }}</span>
+    <span id="disruptionEnd">{{ 'DisruptionProcessComponent.DisruptionEnd' | translate}}: </span>
+    <span id="someEnd">{{ disruptionEnd }}</span>
+    <br>
+
+    <!--Handles driver process header-->
+    <div *ngIf="referenceBlockDriverEnabled">
+      <span id="disruptionReference">{{ 'DisruptionProcessComponent.Reference' | translate}} </span>
+      <br>
+      <span id="disruptionReferenceType">{{ 'DisruptionProcessComponent.Type' | translate }}: </span>
+      <span id="disruptionReferenceTypeValue"> {{ 'DisruptionProcessComponent.DriverType' | translate }}</span>
+      <br>
+      <span id="disruptionReferenceFullName">{{ 'DisruptionProcessComponent.FullName' | translate}}: </span>
+      <span id="disruptionReferenceFullNameValue">{{ driverReferenceName }} {{ driverReferencePreName }}</span>
+      <br>
+      <span id="disruptionReferenceEmail">{{ 'DisruptionProcessComponent.Email' | translate}}: </span>
+      <span id="disruptionReferenceEmailValue">{{ driverReferenceEmail }}</span>
+      <br>
+      <span id="disruptionReferenceDateOfBirth">{{ 'DisruptionProcessComponent.dateOfBirth' | translate}}: </span>
+      <span id="disruptionReferenceDateOfBirthValue">{{ driverReferenceDateOfBirth }}</span>
+      <br>
+      <span id="disruptionReferenceDesc">{{ 'DisruptionProcessComponent.Description' | translate}}: </span>
+      <span id="disruptionReferenceDescValue">{{ disruptionReferenceDesc }}</span>
+      <hr>
+    </div>
+
+    <!--Handles vehicle process header-->
+    <div *ngIf="referenceBlockVehicleEnabled">
+      <span id="disruptionReference">{{ 'DisruptionProcessComponent.Reference' | translate}}: </span>
+      <br>
+      <span id="disruptionReferenceType">{{ 'DisruptionProcessComponent.Type' | translate }}: </span>
+      <span id="disruptionReferenceTypeValue"> {{ 'DisruptionProcessComponent.VehicleType' | translate }}</span>
+      <br>
+      <span id="disruptionReferenceVehicleTypeRef">{{ 'DisruptionProcessComponent.VehicleTypeRef' | translate}}: </span>
+      <span id="disruptionReferenceVehicleTypeRefValue">{{ vehicleReferenceVehicleType }}</span>
+      <br>
+      <span id="disruptionReferenceDesc">{{ 'DisruptionProcessComponent.Description' | translate}}: </span>
+      <span id="disruptionReferenceDescValue">{{ disruptionReferenceDesc }}</span>
+      <hr>
+    </div>
+
+    <!--Handles line process header-->
+    <div *ngIf="referenceBlockLineEnabled">
+      <span id="disruptionReference">{{ 'DisruptionProcessComponent.Reference' | translate}} </span>
+      <br>
+      <span id="disruptionReferenceDesc">{{ 'DisruptionProcessComponent.LineCode' | translate}}: </span>
+      <span id="disruptionReferenceDescValue">{{ disruptedLineId }}</span>
+      <br>
+      <span id="disruptionReferenceDesc">{{ 'DisruptionProcessComponent.Description' | translate}}: </span>
+      <span id="disruptionReferenceDescValue">{{ disruptionReferenceLineRef }}</span>
+      <br>
+      <span id="disruptionReferenceDesc">{{ 'DisruptionProcessComponent.Type' | translate}}: </span>
+      <span id="disruptionReferenceDescValue">{{ 'DisruptionProcessComponent.LineType' | translate}} </span>
+      <hr>
+    </div>
+  </div>
+
+  <!--State Buttons on below process header-->
+  <div class="form-item-container-state">
+    <jqxButton #disruptionStateProcessButton (onClick)="onDisruptionProcessButtonClick($event)"
+      [disabled]="!inProcessEnabled" [template]="'warning'">
+      {{ 'DisruptionMgmtComponent.defaults.DisruptionStates.IN_PROCESS' | translate }}
+      <!-- {{this.disruptionStates[2]}} -->
+    </jqxButton>
+    <jqxButton #disruptionStateCancelButton (onClick)="disruptionStateCancelButtonOnClick($event)"
+      [disabled]="!cancelEnabled" [template]="'primary'">
+      {{ 'DisruptionMgmtComponent.defaults.DisruptionStates.CANCEL' | translate }}
+      <!-- {{this.disruptionStates[3]}} -->
+    </jqxButton>
+    <jqxButton #disruptionStateDoneButton [disabled]="!doneEnabled" [template]="'success'"
+      (onClick)="disruptionStateDoneButtonOnClick($event)">
+      {{ 'DisruptionMgmtComponent.defaults.DisruptionStates.DONE' | translate }}
+      <!-- {{this.disruptionStates[1]}} -->
+    </jqxButton>
+    <jqxButton #disruptionResetButton [disabled]="!resetEnabled" (onClick)="disruptionResetButtonOnClick($event)">
+      {{ 'DisruptionMgmtComponent.DisruptionReset' | translate }}
+      <!-- {{this.disruptionStates[1]}} -->
+    </jqxButton>
+  </div>
+  <br>
+
+  <!--Result of affected trip by driver or vehicle disruption-->
+  <div class="form-item-container-tripResult">
+    <hr>
+    <div *ngIf="entityInTripsFound">
+      <span id="disruptedEntityFormat">{{ 'DisruptionProcessComponent.PlannedTour' | translate}}</span>
+      <span id="disruptedEntityValueFormat">{{ disruptedEntityTripIdent }}</span>
+      <br>
+      <span id="disruptedEntityFormat">{{ 'DisruptionProcessComponent.TourState' | translate}}</span>
+      <span id="disruptedEntityValueFormat">{{ disruptedEntityTripState }}</span>
+      <br>
+      <span id="disruptedEntityFormat">{{ 'DisruptionProcessComponent.TourStart' | translate}}</span>
+      <span id="disruptedEntityValueFormat">{{ disruptedEntityTripStart }}</span>
+      <br>
+      <span id="disruptedEntityFormat">{{ 'DisruptionProcessComponent.TourEnd' | translate}}</span>
+      <span id="disruptedEntityValueFormat">{{ disruptedEntityTripEnd }}</span>
+      <br>
+      <span id="disruptedEntityFormat">{{ 'DisruptionProcessComponent.AssignedVehicle' | translate}}</span>
+      <span id="disruptedEntityValueFormat">{{ disruptedEntityTripVehicle }}</span>
+      <br>
+      <span id="disruptedEntityFormat">{{ 'DisruptionProcessComponent.AssignedDriver' | translate}}</span>
+      <span id="disruptedEntityValueFormat"> {{ driverReferenceName }} {{ driverReferencePreName }} </span>
+      <br>
+      <span id="disruptedEntityFormat">{{ 'DisruptionProcessComponent.LineType' | translate}}</span>
+      <span id="disruptedEntityValueFormat"> {{ disruptedEntityTripLineId }} </span>
+    </div>
+    <div *ngIf="noEntityTripsFound" [hidden]="!showNotripsFound">
+      <br>
+      <hr>
+      <span id="NoDriverTripsFoundValue">{{ 'DisruptionProcessComponent.NoTourFound' | translate}}</span>
+      <br>
+    </div>
+    <div *ngIf="showInformCustomer">
+      <br>
+      <hr>
+      <span id="informCustomer">{{ 'DisruptionProcessComponent.InformCustomer' | translate}}</span>
+      <br>
+    </div>
+  </div>
+
+  <!--Search Button for intermodal disrupted trips-->
+  <div [hidden]="!showIntermodalTourSearchButton">
+    <jqxButton #searchIntermodalTrip [disabled]="!searchIntermodalTripEnabled"
+      (onClick)="onSearchIntermodalTripClicked($event)">
+      {{ 'DisruptionProcessComponent.IntermodalTourSearchButton' | translate }}
+    </jqxButton>
+  </div>
+
+  <jqxNotification #notifyTripSelected [blink]="false" [autoOpen]="false" [autoClose]="true" [animationOpenDelay]="800"
+    [template]="'info'" [opacity]="0.9" [position]="'top-right'" [width]="'25%'">
+    <div>
+      Disrupted trip selected
+    </div>
+  </jqxNotification>
+
+  <div [hidden]="!showSelectedTourButton">
+    <jqxButton #tourselected [template]="'success'" [disabled]="!selectedTourButtonEnabled">
+      {{ 'DisruptionProcessComponent.Selected' | translate }}
+    </jqxButton>
+  </div>
+  <br>
+
+  <!--Table of disrupted intermodal trips-->
+  <div class="form-item-container" [hidden]="!showdisruptedIntermodalTour">
+    <jqxGrid #disruptedIntermodalTourDataTableRef [columns]="disruptedIntermodalTourColumns"
+      [source]="disruptedIntermodalTourDataAdapter" [pageable]="disruptedIntermodalTourConfiguration.pageable"
+      [sortable]="disruptedIntermodalTourConfiguration.sortable"
+      [editable]="disruptedIntermodalTourConfiguration.editable"
+      [filterable]="disruptedIntermodalTourConfiguration.filterable"
+      [columnsresize]="disruptedIntermodalTourConfiguration.columnsResize"
+      [columnsreorder]="disruptedIntermodalTourConfiguration.columnsReorder"
+      [pagerbuttonscount]="disruptedIntermodalTourConfiguration.pagerButtonsCount"
+      [pagesize]="disruptedIntermodalTourConfiguration.pagesize"
+      (onCelldoubleclick)="onDisruptedIntermodalTourDoubleClicked($event)" [width]="800" [height]="150"
+      [adaptive]="true" [disabled]="!enableDisruptedIntermodalTourTable">
+    </jqxGrid>
+  </div>
+  <hr>
+
+  <!--Driver solution combobobx-->
+  <div class="form-item-container" [hidden]="!showSolutionDriverDropdown">
+    <mat-label>{{ 'DisruptionProcessComponent.SolutionProcess' | translate}}</mat-label>
+    <jqxComboBox #disruptionDriverComboBox (onSelect)="driverSolutionComboBoxOnSelect($event)" [width]="300"
+      [height]="30" [source]="driverSolutionsAdapter" [selectedIndex]="-1">
+    </jqxComboBox>
+    <br>
+    <!--Alternative driver table-->
+    <jqxGrid #driversDataTableRef [columns]="driversColumns" [source]="driversDataAdapter"
+      [pageable]="driversTableConfiguration.pageable" [sortable]="driversTableConfiguration.sortable"
+      [editable]="driversTableConfiguration.editable" [filterable]="driversTableConfiguration.filterable"
+      [columnsresize]="driversTableConfiguration.columnsResize"
+      [columnsreorder]="driversTableConfiguration.columnsReorder"
+      [pagerbuttonscount]="driversTableConfiguration.pagerButtonsCount" [pagesize]="driversTableConfiguration.pagesize"
+      (onCellvaluechanged)="onAlternativeDriverClicked($event)" [width]="800" [height]="150" [adaptive]="true">
+    </jqxGrid>
+  </div>
+
+  <!--vehicle solution combobox-->
+  <div class="form-item-container" [hidden]="!showSolutionVehicleDropdown">
+    <mat-label>{{ 'DisruptionProcessComponent.SolutionProcess' | translate}}</mat-label>
+    <jqxComboBox #disruptionVehicleComboBox (onSelect)="vehicleSolutionComboBoxOnSelect($event)" [width]="300"
+      [height]="30" [source]="vehicleSolutionsAdapter" [selectedIndex]="-1">
+    </jqxComboBox>
+    <br>
+    <!--alternative vehicle data table-->
+    <jqxGrid #vehiclesDataTableRef [columns]="vehiclesColumns" [source]="vehiclesDataAdapter"
+      [pageable]="vehiclesTableConfiguration.pageable" [sortable]="vehiclesTableConfiguration.sortable"
+      [editable]="vehiclesTableConfiguration.editable" [filterable]="vehiclesTableConfiguration.filterable"
+      [columnsresize]="vehiclesTableConfiguration.columnsResize"
+      [columnsreorder]="vehiclesTableConfiguration.columnsReorder"
+      [pagerbuttonscount]="vehiclesTableConfiguration.pagerButtonsCount"
+      [pagesize]="vehiclesTableConfiguration.pagesize" (onCellvaluechanged)="onAlternativeVehicleClicked($event)"
+      [width]="800" [height]="150" [adaptive]="true">
+    </jqxGrid>
+  </div>
+
+  <!--line solution combobox-->
+  <div class="form-item-container" [hidden]="!showSolutionLineDropdown">
+    <mat-label>{{ 'DisruptionProcessComponent.SolutionProcess' | translate}}</mat-label>
+    <jqxComboBox #disruptionLineComboBox (onSelect)="lineSolutionComboBoxOnSelect($event)" [width]="300" [height]="30"
+      [source]="lineSolutionsAdapter" [selectedIndex]="-1">
+    </jqxComboBox>
+    <br>
+    <!--intermodal alternatives data table-->
+    <jqxGrid #intermodalAlternativeDataTableRef [columns]="intermodalAlternativeColumns"
+      [source]="intermodalAltenativeDataAdapter" [pageable]="intermodalAlternativeTableConfiguration.pageable"
+      [sortable]="intermodalAlternativeTableConfiguration.sortable"
+      [editable]="intermodalAlternativeTableConfiguration.editable"
+      [filterable]="intermodalAlternativeTableConfiguration.filterable"
+      [columnsresize]="intermodalAlternativeTableConfiguration.columnsResize"
+      [columnsreorder]="intermodalAlternativeTableConfiguration.columnsReorder"
+      [pagerbuttonscount]="intermodalAlternativeTableConfiguration.pagerButtonsCount"
+      [pagesize]="intermodalAlternativeTableConfiguration.pagesize"
+      (onCelldoubleclick)="onIntermodalAlternativeCellDoubleClicked($event)" [width]="800" [height]="150"
+      [adaptive]="true" [disabled]="!enableIntermodalAlternativeTourTable">
+    </jqxGrid>
+  </div>
+  <br>
+  <div class="form-item-container-state" [hidden]="!showSendButton">
+    <jqxButton #alternativeSendButton (onClick)="updateDisruptedTrip($event)" [template]="'success'"
+      [disabled]="!enableSendButton">
+      {{ 'DisruptionProcessComponent.Send' | translate }}
+    </jqxButton>
+  </div>
+
+  <!--updated trip of driver disruption-->
+  <div>
+    <br>
+    <div class="form-item-container-tripResult" [hidden]="!showSolutionTripDriver">
+      <hr>
+      <div *ngIf="newDriverAlternativeTrip">
+        <span id="disruptionReference">{{ 'DisruptionProcessComponent.Reference' | translate}} </span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.PlannedTour' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTripIdent }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.TourState' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTrip.state }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.TourStart' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTripStart }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.TourEnd' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTripEnd }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.AssignedVehicle' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTrip.vehicleId }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.AssignedDriver' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{this.newDriverFirstName }}, {{this.newDriverLastName}}</span>
+        <br>
+        <div class="form-item-container-promp-finish">
+          <span>{{ 'DisruptionProcessComponent.ProcessSuccess' | translate}}</span>
+          <br>
+          <span>{{ 'DisruptionProcessComponent.ConfirmDone' | translate}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!--updated trip of vehicle disruption-->
+    <div class="form-item-container-tripResult" [hidden]="!showSolutionTripVehicle">
+      <hr>
+      <div *ngIf="newVehicleAlternativeTrip">
+        <span id="disruptionReference">{{ 'DisruptionProcessComponent.Reference' | translate}} </span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.PlannedTour' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTripIdent }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.TourState' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTrip.state }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.TourStart' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTripStart }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.TourEnd' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{ this.disruptedEntityTripEnd }}</span>
+        <br>
+        <span id="newAlternativeEntityFormat">{{ 'DisruptionProcessComponent.AssignedVehicle' | translate}}</span>
+        <span id="newAlternativeEntityValueFormat">{{this.disruptedEntityTrip.vehicleId }}</span>
+        <br>
+        <div class="form-item-container-promp-finish">
+          <span>{{ 'DisruptionProcessComponent.ProcessSuccess' | translate}}</span>
+          <br>
+          <span>{{ 'DisruptionProcessComponent.ConfirmDone' | translate}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!--Cancel Options combobox-->
+    <div id="cancelInformation" [hidden]="!showCancelOptions">
+      <jqxComboBox #cancelOptionsComboBox (onSelect)="cancelOptionsComboBoxOnSelect($event)" [width]="300" [height]="30"
+        [source]="cancelOptionsAdapter" [selectedIndex]="-1">
+      </jqxComboBox>
+      <!-- <jqxButton #forwardCancellationButton (onClick)="forwardCancellationButtonClicked($event)" [width]="60"
+        [height]="40" [hidden]="!cancelInformationBtnEnabled"> Fertig!
+      </jqxButton> -->
+    </div>
+  </div>
+
+  <!--jqx loader-->
+  <jqxLoader #jqxLoader [imagePosition]="'top'" [width]="100" [height]="60">
+  </jqxLoader>
+
+  <jqxLoader #jqxLoaderRouting [imagePosition]="'top'" [width]="100" [height]="60">
+  </jqxLoader>
+</div>
+
+<!--enables the disruption history component-->
+<div *ngIf="disruptionHistoryComponentEnabled">
+  <app-disruption-history></app-disruption-history>
+</div>

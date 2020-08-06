@@ -1,0 +1,21 @@
+.bg-disruption-done {
+    background-color: rgba(17, 200, 34, 0.33) !important;
+}
+
+.bg-disruption-new {
+    background-color: rgba(255, 0, 0, 0.35) !important;
+}
+
+.bg-tourstate-escalation {
+    background-color: rgba(255, 0, 0) !important;
+}
+
+.bg-tourstate-cancelled {
+  background-color: rgb(33, 33, 179) !important;
+}
+
+.bg-tourstate-in_process {
+  background-color: rgb(221, 184, 61) !important;
+}
+
+

@@ -1,0 +1,16 @@
+<div [hidden]="!showDisruptionTypesPieChart">
+  <!-- This jqx chart displays a total share of disruption types -->
+  <jqxChart #disruptionTypesPieChart [width]="'100%'" [height]="400" [width]="500" [showLegend]="false"
+    [enableAnimations]="true" [source]="pieChartDataAdapter" [showBorderLine]="false" [seriesGroups]="seriesGroups"
+    [colorScheme]="'scheme08'" [showLegend]="true" [legendLayout]="legendLayout" [title]="'DisruptionMgmtComponent.ShareOfDisruptionTypes' | translate" [description]="'DisruptionMgmtComponent.ShareOfDisruptionTypesDetails' | translate">
+  </jqxChart>
+</div>
+<!-- This jqx chart displays a comparison between disrupted intermodal trip and alternative intermodal trip  -->
+<div [hidden]="!showIntermodalAlternativeChart">
+  <jqxChart #intermodalTripsBarChart [width]="'100%'" [height]="400" [title]="'DisruptionMgmtComponent.DisruptedIMTripVSAlternativeIMTripHeader' | translate" 
+  [description]="'DisruptionMgmtComponent.DisruptedIMTripVSAlternativeIMTripDesc' | translate"
+    [showLegend]="true" [enableAnimations]="true"
+    [padding]="padding" [titlePadding]="titlePadding" [source]="barChartDataAdapter" [xAxis]="xAxis"
+    [seriesGroups]="seriesGroupBarChart" [colorScheme]="'scheme01'">
+  </jqxChart>
+</div>

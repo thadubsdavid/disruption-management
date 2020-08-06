@@ -1,0 +1,20 @@
+<div>
+  <app-stepper-disruption></app-stepper-disruption>
+</div>
+<jqxSplitter #disruptionMgmtSplitter [width]="'100%'" [height]="'100%'" [orientation]="'vertical'"
+  [panels]="[{ size: '50%' }, { size: '50%' }]">
+  <div>
+    <jqxSplitter #disruptionMgmtSplitterBottom [width]="'100%'" [height]="'100%'"
+      [panels]="[{ size: '50%' }, { size: '50%' }]" [orientation]="'horizontal'">
+      <div id='leftSplitArea'>
+        <app-disruption-grid></app-disruption-grid>
+      </div>
+      <div id="rightSplitterAnalysis">
+        <app-disruption-analytics (showAnalytics)="showAnalytics()" [hidden]="analyticsHidden"></app-disruption-analytics>
+      </div>
+    </jqxSplitter>
+  </div>
+  <div id='rightSplitProcess'>
+    <app-process-disruption (showProcess)="showProcess()" [hidden]="processHidden"></app-process-disruption>
+  </div>
+</jqxSplitter>

@@ -1,0 +1,37 @@
+<div *ngIf="disruptionHistoryEnabled">
+  <h5>{{ 'DisruptionMgmtComponent.AnalyticsComponentHeader' | translate}}</h5>
+</div>
+<br>
+<!--Disruption History Combobox that shows options of disruptions-->
+<div>
+  <jqxComboBox #disruptionHistoryComboBox (onSelect)="disruptionHistoryComboboxOnSelect($event)" [width]="400"
+    [height]="30" [source]="disruptionHistoryAdapter" [selectedIndex]="-1">
+  </jqxComboBox>
+</div>
+<hr>
+<!--Disruption History Table that shows the stored disrupted intermodal trips of disruption-->
+<div #intermodalTripSourceTableBlock [hidden]="!enableIntermodalTripSourceTableBlock">
+  <h5>{{ 'IntermodalTripSourceGrid.nameAlternative' | translate}}</h5>
+  <jqxGrid #intermodalTripSource [columns]="intermodalTripTableColumns" [source]="intermodalTripDataAdapter"
+    [pageable]="stateHistoryTableConfiguration.pageable" [sortable]="stateHistoryTableConfiguration.sortable"
+    [editable]="stateHistoryTableConfiguration.editable" [filterable]="stateHistoryTableConfiguration.filterable"
+    [columnsresize]="stateHistoryTableConfiguration.columnsResize"
+    [columnsreorder]="stateHistoryTableConfiguration.columnsReorder"
+    [pagerbuttonscount]="stateHistoryTableConfiguration.pagerButtonsCount"
+    [pagesize]="stateHistoryTableConfiguration.pagesize" [width]="800" [height]="200">
+  </jqxGrid>
+</div>
+<br>
+
+<!--Disruption History Table that shows the history list of disruption-->
+<div #disruptionStateHistorySourceTableBlock [hidden]="!enableDisruptionStateHistorySourceTableBlock">
+  <h5>{{ 'DisruptionStateHistorySourceGrid.name' | translate}}</h5>
+  <jqxGrid #disruptionStateHistorySource [columns]="stateHistoryTableColumns" [source]="stateHistoryDataAdapter"
+    [pageable]="stateHistoryTableConfiguration.pageable" [sortable]="stateHistoryTableConfiguration.sortable"
+    [editable]="stateHistoryTableConfiguration.editable" [filterable]="stateHistoryTableConfiguration.filterable"
+    [columnsresize]="stateHistoryTableConfiguration.columnsResize"
+    [columnsreorder]="stateHistoryTableConfiguration.columnsReorder"
+    [pagerbuttonscount]="stateHistoryTableConfiguration.pagerButtonsCount"
+    [pagesize]="stateHistoryTableConfiguration.pagesize" [width]="800" [height]="200">
+  </jqxGrid>
+</div>

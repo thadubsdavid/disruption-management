@@ -1,0 +1,272 @@
+/**
+* ToDo: Was raus kann wird rausgeworfen
+*
+*/
+#disruptionStart {
+  font-weight: bold;
+  margin: 5px;
+}
+
+#disruptionEnd {
+  font-weight: bold;
+  margin: 5px;
+}
+
+#disruptionReferenceType {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptionReferenceTypeValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptionReferenceDesc {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptionReferenceDescValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptionReferenceIdent {
+  font-weight: bold;
+  margin: 5px;
+  margin-left: 10px;
+}
+
+#disruptionReferenceEmail {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptionReferenceEmailValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptionReferenceDateOfBirth {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptionReferenceDateOfBirthValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptionReferenceFullName {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptionReferenceFullNameValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptionReferenceDepot {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptionReferenceDepotValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptionReferenceLicensePlate {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptionReferenceLicensePlateValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptionReferenceVehicleTypeRef {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptionReferenceVehicleTypeRefValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptionReference {
+  font-size: large;
+  margin: 5px;
+  margin-left: 5px;
+}
+
+#disruptionActualState {
+  font-weight: bold;
+  margin: 5px;
+}
+
+#processDisruptionHeader {
+  background-color: lightgray;
+}
+
+#referenceBlock {
+  background-color: rgb(216, 216, 216);
+}
+
+span {
+  display: inline-block;
+}
+
+.form-item-container{
+  margin: 0;
+  position: relative;
+  left: 20px;
+}
+
+.form-item-container-state {
+
+  position: absolute;
+  right: 5%;
+}
+
+.form-item-container-driver-grid {
+  height: 10px;
+  width: 10px;
+}
+
+#disruptionStateProcess {
+  margin: 5px;
+  float: right;
+  background-color: rgb(33, 33, 179);
+  display: inline-block;
+
+}
+
+#disruptionStateCancel {
+  margin: 5px;
+  float: right;
+  background-color: rgb(92, 92, 92);
+  display: inline-block;
+
+}
+
+#disruptionStateDone {
+  margin: 5px;
+  float: right;
+  background-color: rgb(92, 92, 92);
+  display: inline-block;
+
+}
+
+.form-item-container-tripResult {
+  margin: 0;
+  position: relative;
+  left: 1%;
+}
+#disruptedDriverTripIdent {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptedDriverTripIdentValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptedDriverTripState {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptedDriverTripStateValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptedDriverTripStart {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptedDriverTripStartValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptedDriverTripEnd {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptedDriverTripEndValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptedDriverTripVehicle {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptedDriverTripVehicleValue {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#cancelInformation {
+  margin: 0;
+  position: absolute;
+  left: 50%;
+}
+
+/**
+* Zurzeit im HTML festgelegt
+*
+*/
+#newAlternativeEntityFormat {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#newAlternativeEntityValueFormat {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+#disruptedEntityFormat {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#disruptedEntityValueFormat {
+  margin: 0;
+  position: absolute;
+  left: 25%;
+}
+
+.form-item-container-promp-finish {
+  margin: 5%;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+  text-align: center;
+}
+
